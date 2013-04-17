@@ -1,0 +1,158 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Large Colored Title Article
+% LaTeX Template
+% Version 1.1 (25/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+% PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[fontsize=12pt, a4paper, oneside]{scrartcl}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage[utf8]{inputenc} % Document encoding
+\usepackage[francais]{babel} % English language/hyphenation
+\usepackage[protrusion=true,expansion=true]{microtype} % Better typography
+\usepackage{fix-cm} % Custom font sizes - used for the initial letter in the document
+
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage[svgnames]{xcolor} % Enabling colors by their 'svgnames'
+\usepackage{graphicx} % Box manipulation
+\usepackage{float}
+\graphicspath{{Images/}}
+
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+
+\usepackage{booktabs} % Horizontal rules in tables
+
+\usepackage{fancyhdr} % Needed to define custom headers/footers
+\pagestyle{fancy} % Enables the custom headers/footers
+\usepackage{lastpage} % Used to determine the number of pages in the document (for "Page X of Total")
+
+\usepackage{hyperref} % URL management
+
+% Headers - all currently empty
+\lhead{}
+\chead{}
+\rhead{}
+
+% Footers
+\lfoot{Left footer}
+\cfoot{Center footer}
+\rfoot{\footnotesize Page \thepage\ of \pageref{LastPage}} % "Page 1 of 2"
+
+\renewcommand{\headrulewidth}{0.0pt} % No header rule
+\renewcommand{\footrulewidth}{0.4pt} % Thin footer rule
+
+\include{commands}
+
+
+%----------------------------------------------------------------------------------------
+% TITLE PAGE
+%----------------------------------------------------------------------------------------
+\newcommand*{\plogo}{\fbox{$\mathcal{EISTI}$}} % Generic publisher logo
+\newcommand*{\rotrt}[1]{\rotatebox{90}{#1}} % Command to rotate right 90 degrees
+\newcommand*{\rotlft}[1]{\rotatebox{-90}{#1}} % Command to rotate left 90 degrees
+
+\newcommand*{\titleBC}{\begingroup % Create the command for including the title page in the document
+\centering % Center all text
+
+
+{\large\textbf{Your Name Here}}\\ % Author name
+\vfill % Whitespace between the title and the author name
+
+\def\CP{\textit{\Huge Project title}} % Title
+
+\settowidth{\unitlength}{\CP} % Set the width of the curly brackets to the width of the title
+{\color{LightGoldenrod}\resizebox*{\unitlength}{\baselineskip}{\rotrt{$\}$}}} \\[\baselineskip] % Print top curly bracket
+\textcolor{Sienna}{\CP} \\[\baselineskip] % Print title
+{\color{RosyBrown}\Large Project subtitle} \\ % Tagline or further description
+
+{\color{LightGoldenrod}\resizebox*{\unitlength}{\baselineskip}{\rotlft{$\}$}}} % Print bottom curly bracket
+
+
+
+\vfill % Whitespace between the author name and the publisher logo
+
+%\plogo\\[0.5\baselineskip] % Publisher logo
+2013 % Year published
+\pagebreak
+
+\endgroup}
+
+%--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+% >>> DOCUMENT START <<<
+%--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\begin{document}
+% \setcounter{secnumdepth}{-1} % Disables section numerotation
+\setcounter{secnumdepth}{2} % Disables section numerotation
+\titlespacing{\section}{0pt}{0pt}{15pt}
+\titlespacing{\subsection}{0pt}{40pt}{35pt}
+
+\thispagestyle{empty}
+
+
+\titleBC % Page title
+
+%----------------------------------------------------------------------------------------
+% TABLE OF CONTENT
+%----------------------------------------------------------------------------------------
+
+\thispagestyle{empty}
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------
+% ABSTRACT
+%----------------------------------------------------------------------------------------
+
+% The first character should be within \initial{}
+\setcounter{secnumdepth}{0}
+\section{Avant propos}
+\addvspace{15pt}
+\initial{C}\textbf{e document a pour objet de présenter un compte rendu aussi complet que possible de mes travaux, réalisé à l'occasion de mon projet de fin d'étude.
+J'y aborderais les choix techniques ainsi que la procédure qui a guidé mon avancée. Je tâcherais également d'expliquer les échecs et les obstacles qui ont fraîné
+le développement.}
+\setcounter{secnumdepth}{10}
+
+%----------------------------------------------------------------------------------------
+% ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+
+\include{Sections/example}
+
+%----------------------------------------------------------------------------------------
+% REFERENCE LIST
+%----------------------------------------------------------------------------------------
+
+% \begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
+% 
+% 	\bibitem[Lanz, Jean-David et Forest, Jean-Paul, et al. (2013)]{bbrules}
+% 	\newblock{\em Blood Bowl, Livre de Règles}
+% 	\bibitem[Millington, Ian and Funge, John (2009)]{aiforgames}
+% 	\newblock {\em Artificial Intelligence for Games.}
+% 	\newblock Second edition.
+% 	\bibitem[http://www.ruby-lang.org]{} \newblock Ruby official website
+% 	\bibitem[http://rubygems.org]{} \newblock Ruby libraries resources
+% 	\bibitem[http://ippa.se/chingu]{} \newblock OpenGL accelerated 2D game framework in Ruby
+%  
+% \end{thebibliography}
+
+\bibliographystyle{plain}
+\bibliography{rapport}
+
+\end{document}

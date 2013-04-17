@@ -1,0 +1,49 @@
+task :default => [:build]
+
+task :build => [:build_images, :build_bib] do
+	puts "Building pdf..."
+	IO.popen("pdflatex -interaction batchmode rapport.tex") do |io|
+		io.each_line { |line| puts line }
+		io.close
+		if $?.to_i == 0
+			system("pdflatex -interaction batchmode rapport.tex")
+			puts "Done! Displaying..."
+			Thread.new{ system "evince", "rapport.pdf" }.run
+		else
+			puts "Error building pdf"
+		end
+	end
+end
+
+task :build_bib do
+	system "bibtex rapport"
+end
+
+task :build_images do
+	Dir.glob("Images/*.svg").map { |svg| svg.gsub(/\.svg/, '') }.each do |file|
+		system "inkscape -z -D -T -d 200 --file=#{file}.svg --export-pdf=#{file}.pdf --export-latex"
+	end
+end
+
+task :debug do
+	IO.popen("pdflatex rapport.tex") do |io|
+		io.each_line { |line| puts line }
+		io.close
+	end
+end
+
+task :clean do
+	system "rm */*.aux"
+	system "rm *.aux"
+	system "rm *.log"
+end
+
+task :cleaner => :clean do
+	system "rm Images/*.pdf"
+	system "rm Images/*.pdf_tex"
+	system "rm *.pdf"
+	system "rm *.toc"
+	system "rm *.blg"
+	system "rm *.bbl"
+	system "rm *.out"
+end

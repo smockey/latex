@@ -1,0 +1,114 @@
+%----------------------------------------------------------------------------------------
+% Sections formatting
+%----------------------------------------------------------------------------------------
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,shadows,calc}
+\usepackage[explicit]{titlesec}
+
+\definecolor{visgreen}{rgb}{0.733, 0.776, 0}
+
+\newcommand\PartTitle[1]{%
+	\begin{tikzpicture}[remember picture, overlay]
+		\node[fill, visgreen, line width=1.5pt, opacity=.7, inner sep=15pt, rounded corners=25pt,
+			text=white,font=\Huge\sffamily,anchor=west,
+			xshift=\the\dimexpr-\marginparwidth-\marginparsep-14pt\relax]
+			at (-25pt,0) {\vphantom{plPQq}\hspace{25pt}\makebox[18cm][l]{#1}};
+		\node[draw, visgreen, line width=1.5pt, inner sep=15pt, rounded corners=25pt,
+			text=white,font=\Huge\sffamily,anchor=west,
+			xshift=\the\dimexpr-\marginparwidth-\marginparsep-14pt\relax]
+			at (-25pt,0) {\vphantom{plPQq}\hspace{25pt}\makebox[18cm][l]{#1}};
+	\end{tikzpicture}%
+	\vspace{30pt}
+}
+
+\titleformat{\part}[hang]{\normalfont\sffamily}{}{0em}{\PartTitle{\thepart. #1}}
+
+\newcommand\SecTitle[3]{%
+	\begin{tikzpicture}[overlay,every node/.style={signal, draw, text=white, signal to=nowhere}]
+		\node[#1,fill, line width=1.5pt, opacity=.7, signal to=east, inner sep=1em,
+			text=white,font=#2\sffamily,anchor=west,
+			xshift=\the\dimexpr-\marginparwidth-\marginparsep-14pt\relax]
+			at (0,8pt) {#3};
+		\node[#1,draw, line width=1.5pt, signal to=east, inner sep=1em,
+			text=white,font=#2\sffamily,anchor=west,
+			xshift=\the\dimexpr-\marginparwidth-\marginparsep-14pt\relax]
+			at (0,8pt) {#3};
+	\end{tikzpicture}
+}
+
+\titleformat{name=\section, numberless}[hang]
+	{\normalfont\sffamily}{}{0px}
+	{\PartTitle{#1}}
+\titleformat{\section}[hang]
+	{\normalfont\sffamily}{}{0px}
+	% {\SecTitle{visgreen}{\Huge}{\thesection. #1}}
+	{\PartTitle{\thesection. #1}}
+\titleformat{name=\subsection, numberless}[hang]
+	{\normalfont\sffamily}{}{0px}
+	{\SecTitle{Goldenrod}{\large}{#1}}
+\titleformat{\subsection}[hang]
+	{\normalfont\sffamily}{}{0px}
+	{\SecTitle{Goldenrod}{\large}{\thesubsection. #1}}
+
+	
+% Lettrine formatting
+\usepackage{lettrine} % Package to accentuate the first letter of the text
+\newcommand{\initial}[2][3]{ % Defines the command and style for the first letter
+\lettrine[lines=#1,lhang=0.3,nindent=3pt]{\color{Goldenrod}{\textsf{#2}}}{}
+}
+
+%----------------------------------------------------------------------------------------
+% QUOTATION BOX
+%----------------------------------------------------------------------------------------
+
+\newcommand\quotebox[3]{
+	\vspace{#1}\hfill\parbox{8cm}{\raggedleft#2\linebreak{—~#3}}\linebreak[4]\newline
+}
+
+%----------------------------------------------------------------------------------------
+% CODE SNIPPETS
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings} % Required for inserting code snippets
+
+\definecolor{DarkGreen}{rgb}{0.0,0.4,0.0} % Comment color
+\definecolor{highlight}{RGB}{255,251,204} % Code highlight color
+\definecolor{Charcoal}{RGB}{47,55,57}
+\definecolor{BrickRed}{RGB}{194,110,100}
+\definecolor{Cream}{RGB}{240,240,240}
+
+
+\lstdefinestyle{Ruby}{ % Define a style for your code snippet, multiple definitions can be made if, for example, you wish to insert multiple code snippets using different programming languages into one document
+	language=Ruby, % Detects keywords, comments, strings, functions, etc for the language specified
+	%backgroundcolor=\color{Charcoal}, % Set the background color for the snippet - useful for highlighting
+	backgroundcolor=\color{highlight}, % Set the background color for the snippet - useful for highlighting
+	basicstyle=\footnotesize\ttfamily\color{Black}, % The default font size and style of the code
+	belowcaptionskip=1\baselineskip,
+	breakatwhitespace=false, % If true, only allows line breaks at white space
+	breaklines=true, % Automatic line breaking (prevents code from protruding outside the box)
+	captionpos=b, % Sets the caption position: b for bottom; t for top
+	commentstyle=\usefont{T1}{pcr}{m}{sl}\color{Gray}, % Style of comments within the code - dark green courier font
+	deletekeywords={}, % If you want to delete any keywords from the current language separate them by commas
+	escapeinside={\%*}{*}, % This allows you to escape to LaTeX using the character in the bracket
+	firstnumber=1, % Line numbers begin at line 1
+	frame={leftline}, % Frame around the code box, value can be: none, leftline, topline, bottomline, lines, single, shadowbox
+	frameround=tttt, % Rounds the corners of the frame for the top left, top right, bottom left and bottom right positions
+	aboveskip=12pt,
+	belowskip=12pt,
+	keywordstyle=\footnotesize\ttfamily\color{BrickRed},
+	morekeywords={}, % Add any functions no included by default here separated by commas
+	numbers=left, % Location of line numbers, can take the values of: none, left, right
+	numbersep=10pt, % Distance of line numbers from the code box
+	numberstyle=\tiny\color{Gray}, % Style used for line numbers
+	rulecolor=\color{visgreen}, % Frame border color
+	showstringspaces=false, % Don't put marks in string spaces
+	showtabs=false, % Display tabs in the code as lines
+	stepnumber=5, % The step distance between line numbers, i.e. how often will lines be numbered
+	stringstyle=\color{visgreen}, % Strings are purple
+	tabsize=2, % Number of spaces per tab in the code
+}
+
+
+% Create a command to cleanly insert a snippet with the style above anywhere in the document
+\newcommand{\snippet}[2]{\begin{itemize}\item[]\lstinputlisting[caption=#2,label=#1,style=Ruby]{Snippets/#1}\end{itemize}} % The first argument is the script location/filename and the second is a caption for the listing
