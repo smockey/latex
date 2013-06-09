@@ -8,7 +8,7 @@ task :build => [:build_images, :build_bib] do
 		if $?.to_i == 0
 			system("pdflatex -interaction batchmode rapport.tex")
 			puts "Done! Displaying..."
-			Thread.new{ system "evince", "rapport.pdf" }.run
+			Thread.new{ system "zathura", "rapport.pdf" }.run
 		else
 			puts "Error building pdf"
 		end
